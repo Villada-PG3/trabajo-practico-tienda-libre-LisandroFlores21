@@ -22,4 +22,5 @@ staticfiles/
 # Archivos del sistema
 .DS_Store
 
-
+../env/
+../.env/
