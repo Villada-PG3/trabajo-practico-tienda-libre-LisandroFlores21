@@ -6,8 +6,9 @@ from django.views.generic import TemplateView
 class ProductosTemplateView(TemplateView):
     template_name = "productos.html"
 
-def home_1 (request):
-    return HttpResponse ("<h1>Bienvenidos a Tienda Libre</h1>")
+def home(request):
+    return render(request, 'miapp/home.html')
 
-def home (request):
-    return render(request, "home.html")
+# Vista para la tarea "Acerca de mí"
+def acerca_de_mi(request):
+    return render(request, 'miapp/acerca-de-mi.html')
