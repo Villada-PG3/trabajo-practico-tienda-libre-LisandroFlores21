@@ -12,3 +12,4 @@ def home(request):
 # Vista para la tarea "Acerca de mí"
 def acerca_de_mi(request):
     return render(request, 'miapp/acerca-de-mi.html')
+
