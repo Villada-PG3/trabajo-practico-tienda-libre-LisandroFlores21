@@ -1,11 +1,70 @@
 {% extends "base.html" %}
 
-{% block title %}Acerca de mí - Tienda Libre{% endblock %}
+{% block title %}Acerca de Mí - Lisandro{% endblock %}
+
+{% block extra_css %}
+<style>
+    .caja {
+        background-color: white;
+        padding: 25px;
+        border-radius: 10px;
+        border: 1px solid #dee2e6;
+    }
+    
+    .img-villada {
+        display: block;
+        margin: 15px auto;
+        width: 300px;
+        border-radius: 20px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .img-villada:hover {
+        transform: scale(1.05);
+        box-shadow: 0px 10px 20px rgba(0,0,0,0.2);
+    }
+</style>
+{% endblock %}
 
 {% block content %}
-    <div class="card p-4 shadow-sm border-0">
-        <h1 class="h2 text-primary fw-bold mb-3">Acerca del Desarrollador</h1>
-        <p class="lead">¡Hola! Mi nombre es Lisandro.</p>
-        <p>Este proyecto forma parte de las prácticas de <strong>Programación 3</strong> desarrollando una aplicación web completa con Django y Bootstrap 5.</p>
-    </div>
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+
+        <!-- ENCABEZADO -->
+        <div class="p-4 mb-4 bg-primary text-white rounded-3 text-center shadow-sm">
+            <h1 class="display-5 fw-bold">Este soy yo</h1>
+        </div>
+
+        <!-- SECCIÓN 1: INICIO -->
+        <section id="inicio" class="caja shadow-sm mb-4">
+            <h2 class="h3 text-secondary mb-3">Empecemos por lo básico:</h2>
+            <p class="lead">
+                Mi nombre es <strong>Lisandro Flores Tifner</strong>, estudio en el ITSV,
+                tengo 17 años y vivo en El Talar de Mendiolaza.
+            </p>
+            <p>
+                Este es mi colegio:
+                <a href="https://itsv.edu.ar/nitsv/" target="_blank" class="fw-bold">
+                    Instituto Técnico Salesiano Villada
+                </a>
+            </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/9a/Instituto_T%C3%A9cnico_Salesiano_Villada.jpg" 
+                alt="Instituto Salesiano Villada" 
+                class="img-fluid img-villada shadow">
+        </section>
+
+        <!-- SECCIÓN 2: HOBBIES -->
+        <section id="hobbies" class="caja shadow-sm mb-4">
+            <h3 class="h4 text-secondary mb-3">Cosas que más me gustan:</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">🏉 Jugar al rugby.</li>
+                <li class="list-group-item">🏋️ Entrenar en el gimnasio.</li>
+                <li class="list-group-item">👥 Pasar tiempo con mis amigos.</li>
+                <li class="list-group-item">🎬 Mirar películas.</li>
+            </ul>
+        </section>
+
+        
+</div>
 {% endblock %}
+

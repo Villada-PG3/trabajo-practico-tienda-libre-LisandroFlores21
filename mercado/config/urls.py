@@ -23,14 +23,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from miapp import views
 
-from miapp.views import ProductosTemplateView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("miapp.urls")),
     path('', views.home, name='home'),
     path('acerca-de-mi/', views.acerca_de_mi, name='acerca_de_mi'),
-    path('about/', views.acerca_de_mi),  # Alias apuntando a la misma vista
+    path('about/', views.acerca_de_mi), 
+    
 ]
 
 
