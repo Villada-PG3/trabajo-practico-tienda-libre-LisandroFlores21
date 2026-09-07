@@ -5,7 +5,7 @@ def home(request):
     productos = [
     {
         "nombre": "Notebook Lenovo",
-        "precio": 850000,
+        "precio": None,
         "categoria": "Informática",
         "stock": 3,
     },

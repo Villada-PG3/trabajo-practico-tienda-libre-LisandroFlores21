@@ -56,9 +56,13 @@
                         {{ producto.nombre }}
                     </h5>
 
-                    <p class="card-text">
-                        ${{ producto.precio }}
-                    </p>
+                    <p class="card-text fs-5 text-primary fw-bold">{% if producto.precio %}
+                        Precio:${{producto.precio|floatformat:2}}
+                        {% else %}
+                        <span class = "text-muted fs-6"> 
+                            {{ producto.precio|default:"Sin Precio" }}</span>
+                            {%endif%}
+            </p>
 
                     {% if producto.stock == 0 %}
 
