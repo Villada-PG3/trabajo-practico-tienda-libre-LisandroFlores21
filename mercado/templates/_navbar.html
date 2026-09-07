@@ -7,12 +7,17 @@
         <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-            <a class="nav-link" href="{% url 'home' %}">Inicio</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'acerca_de_mi' %}">Acerca de mí</a>
-        </li>
+                    <a class="nav-link" href="{% url 'home' %}">Inicio</a>
+            </li>
+        
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'acerca_de_mi' %}">Acerca de mí</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'tiendalibre:catalogo' %}">Catálogo</a>
+            </li>
         </ul>
         </div>
     </div>
 </nav>
+

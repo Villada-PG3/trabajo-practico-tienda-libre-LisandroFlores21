@@ -20,10 +20,11 @@ class Producto(models.Model):
         blank=True,
         )
     nombre = models.CharField(max_length=100)
-    descripcion = models.TextField(max_length=100, default=0)
+    descripcion = models.TextField(max_length=200, default=0)
     precio = models.DecimalField(max_digits=100, decimal_places=2)
     stock = models.IntegerField()
     marca = models.CharField(max_length=50, default="Marca Desconocida")
+    activo = models.BooleanField(default=True)
     imagen = models.ImageField(upload_to="productos/", null=True, blank=True)
     def __str__(self):
         return f"{self.nombre} - {self.marca} - ${self.precio} - STOCK: {self.stock}"

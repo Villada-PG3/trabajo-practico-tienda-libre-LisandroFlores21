@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Producto
 
 
 def home(request):
@@ -53,3 +54,7 @@ def home(request):
 def acerca_de_mi(request):
     return render(request, "miapp/acerca-de-mi.html")
 
+def catalogo(request):
+    productos = Producto.objects.filter(activo=True).order_by("stock")
+    context = {"productos": productos}
+    return render(request, "miapp/catalogo.html", context)
