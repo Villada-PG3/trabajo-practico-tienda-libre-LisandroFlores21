@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Producto
+from django.shortcuts import get_object_or_404
 
 
 def home(request):
@@ -58,3 +59,8 @@ def catalogo(request):
     productos = Producto.objects.filter(activo=True).order_by("stock")
     context = {"productos": productos}
     return render(request, "miapp/catalogo.html", context)
+
+def detalle_producto(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    context = {"producto": producto}
+    return render(request, "miapp/detalle.html", context)

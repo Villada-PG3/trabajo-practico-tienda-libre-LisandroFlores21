@@ -19,7 +19,7 @@
                     {% else %}
                         <div class="bg-secondary text-white text-center py-5">Sin imagen</div>
                     {% endif %}
-                    
+                    <a href="{% url 'tiendalibre:detalle_producto' producto.pk %}" class="btn btn-outline-primary">Ver detalle</a>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
                         <p class="card-text text-muted">{{ producto.descripcion|truncatewords:15 }}</p>

@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block title %}{{ producto.nombre }} - Tienda Libre{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- TAREA PARA CASA: Botón Volver al catálogo -->
+    <a href="{% url 'tiendalibre:catalogo' %}" class="btn btn-outline-secondary mb-4 ver-catalogo">
+        ← Volver al catálogo
+    </a>
+
+    <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+        <div class="row g-0">
+            <!-- Columna Imagen -->
+            <div class="col-md-6 bg-light d-flex align-items-center justify-content-center p-3">
+                {% if producto.imagen %}
+                    <img src="{{ producto.imagen.url }}" class="img-fluid rounded-3" alt="{{ producto.nombre }}" style="max-height: 400px; object-fit: contain;">
+                {% else %}
+                    <div class="text-center text-muted py-5">
+                        <i class="bi bi-image fs-1 d-block mb-2"></i>
+                        <span>Sin imagen disponible</span>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Columna Detalles -->
+            <div class="col-md-6 p-4 d-flex flex-column justify-content-between">
+                <div>
+                    {% if producto.categoria %}
+                        <span class="badge bg-secondary text-uppercase mb-2">{{ producto.categoria.nombre }}</span>
+                    {% endif %}
+
+                    {% if producto.marca %}
+                        <small class="text-muted d-block mb-1">Marca: <strong>{{ producto.marca }}</strong></small>
+                    {% endif %}
+
+                    <h1 class="fw-bold mb-3">{{ producto.nombre }}</h1>
+
+                    <h2 class="text-primary fw-bold mb-3">
+                        {% if producto.precio %}
+                            ${{ producto.precio|floatformat:2 }}
+                        {% else %}
+                            <span class="text-muted fs-5">Consultar precio</span>
+                        {% endif %}
+                    </h2>
+
+                    <p class="text-secondary mb-4">
+                        {% if producto.descripcion %}
+                            {{ producto.descripcion }}
+                        {% else %}
+                            <em>Sin descripción disponible para este producto.</em>
+                        {% endif %}
+                    </p>
+                </div>
+
+                <div>
+                    <!-- Indicador de stock y Comprar -->
+                    <div class="d-flex align-items-center gap-3 mb-3">
+                        {% if producto.stock > 0 %}
+                            <span class="badge bg-success fs-6">{{ producto.stock }} unidades disponibles</span>
+                        {% else %}
+                            <span class="badge bg-danger fs-6">Agotado</span>
+                        {% endif %}
+                    </div>
+
+                    {% if producto.stock > 0 %}
+                        <button class="btn btn-success btn-lg w-100">Comprar Ahora</button>
+                    {% else %}
+                        <button class="btn btn-secondary btn-lg w-100" disabled>Sin Stock Disponible</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
