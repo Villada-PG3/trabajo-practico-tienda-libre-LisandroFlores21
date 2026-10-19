@@ -26,14 +26,14 @@ from miapp import views
 
 
 urlpatterns = [
+    path('', views.HomeView.as_view(), name='home'),
     path('admin/', admin.site.urls),
-    path("", include("miapp.urls")),
-    path('', views.home, name='home'),
     path('acerca-de-mi/', views.acerca_de_mi, name='acerca_de_mi'),
-    path('about/', views.acerca_de_mi), 
+    path('about/', views.acerca_de_mi, name='about'), 
+    path('', include('miapp.urls')),
+    
     
 ]
-
 
 # Servir archivos de imagen/media en modo desarrollo
 if settings.DEBUG:

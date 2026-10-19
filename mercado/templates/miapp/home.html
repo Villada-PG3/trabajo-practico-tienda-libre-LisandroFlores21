@@ -106,4 +106,36 @@
 
 </div>
 
+<div class="row g-3">
+    {% for producto in productos_recientes %}
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card h-100">
+                {% if producto.imagen %}
+                    <img
+                        src="{{ producto.imagen.url }}"
+                        class="card-img-top"
+                        alt="{{ producto.nombre }}"
+                        style="height: 200px; object-fit: cover;"
+                    >
+                {% endif %}
+
+            <div class="card-body">
+                <h5 class="card-title">{{ producto.nombre }}</h5>
+                <p class="card-text">${{ producto.precio }}</p>
+
+                <a
+                    href="{% url 'tiendalibre:detalle_producto' producto.pk %}"
+                    class="btn btn-outline-primary"
+                >
+                    Ver detalle
+                </a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>Todavía no hay productos disponibles.</p>
+{% endfor %}
+
+</div>
 {% endblock %}
+

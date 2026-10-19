@@ -1,66 +1,32 @@
-from django.shortcuts import render
+
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import TemplateView, ListView
 from .models import Producto
-from django.shortcuts import get_object_or_404
 
 
-def home(request):
-    productos = [
-    {
-        "nombre": "Notebook Lenovo",
-        "precio": None,
-        "categoria": "Informática",
-        "stock": 3,
-    },
-    {
-        "nombre": "Teclado mecánico",
-        "precio": 75000,
-        "categoria": "Periféricos",
-        "stock": 12,
-    },
-    {
-        "nombre": "Mouse Logitech",
-        "precio": 45000,
-        "categoria": "Periféricos",
-        "stock": 20,
-    },
-    {
-        "nombre": "Monitor Samsung",
-        "precio": 280000,
-        "categoria": "Monitores",
-        "stock": 0,
-    },
-    {
-        "nombre": "Auriculares Sony",
-        "precio": 120000,
-        "categoria": "Audio",
-        "stock": 7,
-    },
-    {
-        "nombre": "Webcam Logitech",
-        "precio": 95000,
-        "categoria": "Accesorios",
-        "stock": 15,
-    },
-]
+class HomeView(TemplateView):
+    template_name = "miapp/home.html"
 
-    user_logged = True
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
 
-    contexto = {
-        "productos": productos,
-        "user_logged": user_logged,
-    }
+        context["productos_recientes"] = Producto.objects.order_by("-id")[:3]
 
-    return render(request, "miapp/home.html", contexto)
+        # Conservamos la variable para la plantilla
+        context["user_logged"] = self.request.user.is_authenticated
+
+        return context
 
 def acerca_de_mi(request):
     return render(request, "miapp/acerca-de-mi.html")
 
-def catalogo(request):
-    productos = Producto.objects.filter(activo=True).order_by("stock")
-    context = {"productos": productos}
-    return render(request, "miapp/catalogo.html", context)
+
+class CatalogoView(ListView):
+    model = Producto
+    template_name = "miapp/catalogo.html"
+    context_object_name = "productos"
+
 
 def detalle_producto(request, pk):
     producto = get_object_or_404(Producto, pk=pk)
-    context = {"producto": producto}
-    return render(request, "miapp/detalle.html", context)
+    return render(request, "miapp/detalle.html", {"producto": producto})
