@@ -6,7 +6,25 @@
     <div class="row mb-4">
         <div class="col-md-8 mx-auto text-center">
             <h1>Nuestros Productos</h1>
-            
+        </div>
+    </div>
+
+    <!-- 5. Formulario de Búsqueda -->
+    <div class="row mb-4 justify-content-center">
+        <div class="col-md-6">
+            <form method="GET" action="{% url 'tiendalibre:catalogo' %}" class="d-flex gap-2">
+                <input 
+                    type="search" 
+                    name="q" 
+                    class="form-control" 
+                    placeholder="Buscar por nombre, descripción o marca..." 
+                    value="{{ query }}"
+                >
+                <button type="submit" class="btn btn-primary">Buscar</button>
+                {% if query %}
+                    <a href="{% url 'tiendalibre:catalogo' %}" class="btn btn-outline-secondary">Limpiar</a>
+                {% endif %}
+            </form>
         </div>
     </div>
 
@@ -19,20 +37,52 @@
                     {% else %}
                         <div class="bg-secondary text-white text-center py-5">Sin imagen</div>
                     {% endif %}
-                    <a href="{% url 'tiendalibre:detalle_producto' producto.pk %}" class="btn btn-outline-primary">Ver detalle</a>
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ producto.nombre }}</h5>
                         <p class="card-text text-muted">{{ producto.descripcion|truncatewords:15 }}</p>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
                             <span class="fs-5 fw-bold text-success">${{ producto.precio }}</span>
+                            <a href="{% url 'tiendalibre:detalle_producto' producto.pk %}" class="btn btn-outline-primary">Ver detalle</a>
                         </div>
                     </div>
                 </div>
             </div>
         {% empty %}
-            <div class="col-12 text-center">
-                <p class="text-muted fs-5">No hay productos cargados en la base de datos todavía.</p>
+            <div class="col-12 text-center py-4">
+                <p class="text-muted fs-5">No se encontraron productos{% if query %} que coincidan con "{{ query }}"{% endif %}.</p>
             </div>
         {% endfor %}
     </div>
+
+    {% if is_paginated %}
+        <nav aria-label="Navegación de páginas" class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}">Anterior</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+                {% endif %}
+
+                {% for num in paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active" aria-current="page"><span class="page-link">{{ num }}</span></li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}">Siguiente</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
 {% endblock content %}
