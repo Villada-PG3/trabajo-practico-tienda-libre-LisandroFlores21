@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import Categoria, Producto
 from django.db.models import Q
+from .forms import ContactoForm
 
 class HomeView(TemplateView):
     template_name = "miapp/home.html"
@@ -65,3 +66,20 @@ class ProductoDetailView(DetailView):
     model = Producto
     template_name = "miapp/detalle.html"
     context_object_name = "producto"
+
+def contacto(request):
+    if request.method == "POST":
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            # Aquí se procesarían los datos enviados (enviar un mail, guardar, etc.)
+            nombre = form.cleaned_data["nombre"]
+            
+            messages.success(
+                request, 
+                f"¡Gracias {nombre}! Tu mensaje ha sido enviado correctamente."
+            )
+            return redirect("tiendalibre:contacto")
+    else:
+        form = ContactoForm()
+
+    return render(request, "miapp/contacto.html", {"form": form})

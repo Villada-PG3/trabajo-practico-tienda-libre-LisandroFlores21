@@ -21,4 +21,6 @@ urlpatterns = [
         views.acerca_de_mi,
         name="acerca_de_mi",
     ),
+
+    path("contacto/", views.contacto, name="contacto"),
 ]
