@@ -1,5 +1,5 @@
 from django import forms
-
+from .models import Producto
 
 class ContactoForm(forms.Form):
     nombre = forms.CharField(
@@ -43,3 +43,15 @@ class ContactoForm(forms.Form):
             "placeholder": "Escribe tu consulta aquí..."
         })
     )
+
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = "__all__"  # Incluye todos los campos del modelo (nombre, precio, descripcion, categoria, imagen, etc.)
+        widgets = {
+            "nombre": forms.TextInput(attrs={"class": "form-control"}),
+            "descripcion": forms.Textarea(attrs={"class": "form-control", "rows": 3}),
+            "precio": forms.NumberInput(attrs={"class": "form-control"}),
+            "categoria": forms.Select(attrs={"class": "form-select"}),
+            "imagen": forms.FileInput(attrs={"class": "form-control"}),
+        }

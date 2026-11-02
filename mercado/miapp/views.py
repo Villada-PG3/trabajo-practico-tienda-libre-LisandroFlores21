@@ -3,8 +3,9 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, ListView, DetailView
 from .models import Categoria, Producto
 from django.db.models import Q
-from .forms import ContactoForm
-
+from .forms import ContactoForm, ProductoForm
+from django.contrib import messages
+from django.shortcuts import redirect
 class HomeView(TemplateView):
     template_name = "miapp/home.html"
 
@@ -83,3 +84,16 @@ def contacto(request):
         form = ContactoForm()
 
     return render(request, "miapp/contacto.html", {"form": form})
+
+def producto_nuevo(request):
+    if request.method == "POST":
+        # Importante: Pasar request.FILES para procesar imágenes subidas
+        form = ProductoForm(request.POST, request.FILES)
+        if form.is_valid():
+            producto = form.save()  # Guarda el producto directamente en la base de datos
+            messages.success(request, f"Producto '{producto.nombre}' creado exitosamente.")
+            return redirect("tiendalibre:catalogo")
+    else:
+        form = ProductoForm()
+
+    return render(request, "miapp/producto_form.html", {"form": form})
